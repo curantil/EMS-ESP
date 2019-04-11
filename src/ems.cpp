@@ -309,6 +309,10 @@ bool ems_getTxCapable() {
     return EMS_Sys_Status.emsTxCapable;
 }
 
+unsigned long ems_getLastSetBurnerPowerTime() {
+    EMS_Boiler.lastSetBurnerPowerTime;
+}
+
 bool ems_getBusConnected() {
     if ((millis() - EMS_Sys_Status.emsRxTimestamp) > EMS_BUS_TIMEOUT) {
         EMS_Sys_Status.emsBusConnected = false;
@@ -1935,6 +1939,8 @@ void ems_setBurnerPower(uint8_t percentage) {
     EMS_TxTelegram.forceRefresh       = false; // no need to send since this is done by 0x33 process
 
     EMS_TxQueue.push(EMS_TxTelegram);
+
+    EMS_Boiler.lastSetBurnerPowerTime = millis();
 }
 
 /**

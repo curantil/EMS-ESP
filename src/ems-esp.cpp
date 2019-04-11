@@ -1499,4 +1499,8 @@ void loop() {
     if (EMSESP_DELAY != 0) {
         delay(EMSESP_DELAY); // some time to WiFi and everything else to catch up, and prevent overheating
     }
+
+    if (millis() > ems_getLastSetBurnerPowerTime() + 5*60*1000) {
+        ems_setBurnerPower(0);
+    }
 }

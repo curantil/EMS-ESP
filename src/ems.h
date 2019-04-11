@@ -171,6 +171,7 @@ typedef struct {           // UBAParameterWW
     uint8_t wWCircPump;    // Warm Water circulation pump Available
     uint8_t wWDesiredTemp; // Warm Water desired temperature
     uint8_t wWComfort;     // Warm water comfort or ECO mode
+    unsigned long lastSetBurnerPowerTime;
 
     // UBAMonitorFast
     uint8_t  selFlowTemp;        // Selected flow temperature
@@ -298,6 +299,7 @@ bool             ems_getEmsRefreshed();
 uint8_t          ems_getThermostatModel();
 void             ems_discoverModels();
 bool             ems_getTxCapable();
+unsigned long    ems_getLastSetBurnerPowerTime(); // Return the last time the burner power has been set
 
 void   ems_scanDevices();
 void   ems_printAllTypes();
