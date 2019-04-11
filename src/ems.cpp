@@ -201,6 +201,7 @@ void ems_init() {
     EMS_Boiler.wWCircPump    = EMS_VALUE_INT_NOTSET; // Warm Water circulation pump available
     EMS_Boiler.wWDesiredTemp = EMS_VALUE_INT_NOTSET; // Warm Water desired temperature to prevent infection
     EMS_Boiler.wWComfort     = EMS_VALUE_INT_NOTSET;
+    EMS_Boiler.lastSetBurnerPowerTime = 0;
 
     // UBAMonitorFast
     EMS_Boiler.selFlowTemp = EMS_VALUE_INT_NOTSET;   // Selected flow temperature

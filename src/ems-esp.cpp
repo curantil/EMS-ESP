@@ -420,6 +420,10 @@ void showInfo() {
                 (EMS_Boiler.UBAuptime % 1440) / 60,
                 EMS_Boiler.UBAuptime % 60);
     }
+    myDebug("  Last burner power set: (%02d:%02d:%02d)",
+                (uint8_t)((EMS_Boiler.lastSetBurnerPowerTime / (1000 * 60 * 60)) % 24),
+                (uint8_t)((EMS_Boiler.lastSetBurnerPowerTime / (1000 * 60)) % 60),
+                (uint8_t)((EMS_Boiler.lastSetBurnerPowerTime / 1000) % 60));
 
     // For SM10 Solar Module
     if (EMS_Other.SM10) {
