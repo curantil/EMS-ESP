@@ -38,6 +38,7 @@
 #define TOPIC_BOILER_WWACTIVATED "wwactivated"         // for receiving MQTT message to change water on/off
 #define TOPIC_BOILER_CMD_WWTEMP "boiler_cmd_wwtemp"    // for received boiler wwtemp changes via MQTT
 #define TOPIC_BOILER_CMD_COMFORT "boiler_cmd_comfort"  // for received boiler ww comfort setting via MQTT
+#define TOPIC_BOILER_CMD_BURNERPOWER "boiler_cmd_burnerpower"   // for reveived boiler burner power via MQTT
 
 // MQTT for SM10 Solar Module
 #define TOPIC_SM10_DATA "sm10_data"          // topic name

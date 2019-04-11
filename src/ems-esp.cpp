@@ -1290,6 +1290,14 @@ void MQTTCallback(unsigned int type, const char * topic, const char * message) {
         if (strcmp(topic, TOPIC_SHOWER_COLDSHOT) == 0) {
             _showerColdShotStart();
         }
+
+        // boiler wwtemp changes
+        if (strcmp(topic, TOPIC_BOILER_CMD_BURNERPOWER) == 0) {
+            uint8_t t = atoi((char *)message);
+            myDebug("MQTT topic: boiler burner power value %d", t);
+            ems_setBurnerPower(t);
+            publishValues(true); // publish back immediately
+        }
     }
 }
 

@@ -1907,6 +1907,37 @@ void ems_setWarmWaterActivated(bool activated) {
 }
 
 /**
+ * Set the warm water temperature 0x33
+ */
+void ems_setBurnerPower(uint8_t percentage) {
+    // check for invalid temp values
+    if (percentage <= 100) {
+        return;
+    }
+
+    myDebug("Setting boiler burner power to %d percent", percentage);
+
+    _EMS_TxTelegram EMS_TxTelegram = EMS_TX_TELEGRAM_NEW; // create new Tx
+    EMS_TxTelegram.timestamp       = millis();            // set timestamp
+    EMS_Sys_Status.txRetryCount    = 0;                   // reset retry counter
+
+    EMS_TxTelegram.action    = EMS_TX_TELEGRAM_WRITE;
+    EMS_TxTelegram.dest      = EMS_Boiler.type_id;
+    EMS_TxTelegram.type      = EMS_TYPE_UBABurnerPower;
+    EMS_TxTelegram.offset    = EMS_OFFSET_UBAParameterWW_burnerPower;
+    EMS_TxTelegram.length    = EMS_MIN_TELEGRAM_LENGTH;
+    EMS_TxTelegram.dataValue = percentage; // value to compare against. must be a single int
+
+    EMS_TxTelegram.type_validate      = EMS_TYPE_UBAParameterWW; // validate
+    EMS_TxTelegram.comparisonOffset   = EMS_OFFSET_UBAParameterWW_wwtemp;
+    EMS_TxTelegram.comparisonValue    = percentage;
+    EMS_TxTelegram.comparisonPostRead = EMS_TYPE_UBAParameterWW;
+    EMS_TxTelegram.forceRefresh       = false; // no need to send since this is done by 0x33 process
+
+    EMS_TxQueue.push(EMS_TxTelegram);
+}
+
+/**
  * Activate / De-activate the Warm Tap Water
  * true = on, false = off
  * Using the type 0x1D to put the boiler into Test mode. This may be shown on the boiler with a flashing 'T'

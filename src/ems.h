@@ -276,6 +276,7 @@ void ems_setThermostatMode(uint8_t mode);
 void ems_setWarmWaterTemp(uint8_t temperature);
 void ems_setWarmWaterActivated(bool activated);
 void ems_setWarmTapWaterActivated(bool activated);
+void ems_setBurnerPower(uint8_t percentage);
 void ems_setPoll(bool b);
 void ems_setLogging(_EMS_SYS_LOGGING loglevel);
 void ems_setEmsRefreshed(bool b);
