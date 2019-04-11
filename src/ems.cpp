@@ -668,6 +668,16 @@ void _ems_readTelegram(uint8_t * telegram, uint8_t length) {
     if (EMS_Sys_Status.emsLogging == EMS_SYS_LOGGING_RAW) {
         char raw[300]   = {0};
         char buffer[16] = {0};
+
+        unsigned long upt = millis();
+        // Put timestamp in front of raw logging (Adds 11 characters)
+        strlcat(raw, _smallitoa((uint8_t)((upt / (1000 * 60 * 60)) % 24), buffer), sizeof(raw));
+        strlcat(raw, ":", sizeof(raw)); // add colon
+        strlcat(raw, _smallitoa((uint8_t)((upt / (1000 * 60)) % 60), buffer), sizeof(raw));
+        strlcat(raw, ":", sizeof(raw)); // add colon
+        strlcat(raw, _smallitoa((uint8_t)((upt / 1000) % 60), buffer), sizeof(raw));
+        strlcat(raw, " : ", sizeof(raw)); // add colon
+
         for (int i = 0; i < length; i++) {
             strlcat(raw, _hextoa(telegram[i], buffer), sizeof(raw));
             strlcat(raw, " ", sizeof(raw)); // add space
