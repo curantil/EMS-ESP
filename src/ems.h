@@ -298,6 +298,21 @@ uint8_t          ems_getThermostatModel();
 void             ems_discoverModels();
 bool             ems_getTxCapable();
 
+/**
+ * Is there an explanation for the telegram
+ */
+bool isExplainedTelegram(uint8_t * telegram, uint8_t len);
+
+/**
+ * Is the explanation confirmed to be likely true
+ */
+bool isConfirmedTelegram(uint8_t * telegram, uint8_t len);
+
+/**
+ * Print the explanation of the telegram
+ */
+void explainPrintTelegram(uint8_t * telegram, uint8_t len);
+
 void   ems_scanDevices();
 void   ems_printAllTypes();
 char * ems_getThermostatDescription(char * buffer);

@@ -309,6 +309,18 @@ bool ems_getTxCapable() {
     return EMS_Sys_Status.emsTxCapable;
 }
 
+bool isExplainedTelegram(uint8_t * telegram, uint8_t len){
+    return false;
+}
+
+bool isConfirmedTelegram(uint8_t * telegram, uint8_t len) {
+    return false;
+}
+
+void explainPrintTelegram(uint8_t * telegram, uint8_t len) {
+
+}
+
 bool ems_getBusConnected() {
     if ((millis() - EMS_Sys_Status.emsRxTimestamp) > EMS_BUS_TIMEOUT) {
         EMS_Sys_Status.emsBusConnected = false;
