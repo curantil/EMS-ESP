@@ -99,7 +99,7 @@ command_t PROGMEM project_cmds[] = {
     {true, "publish_wait <seconds>", "set frequency for publishing to MQTT"},
 
     {false, "info", "show data captured on the EMS bus"},
-    {false, "log <n | b | t | r | v>", "set logging mode to none, basic, thermostat only, raw or verbose"},
+    {false, "log <n | b | t | e | r | v>", "set logging mode to none, basic, thermostat only, explain, raw or verbose"},
     {false, "publish", "publish all values to MQTT"},
     {false, "refresh", "fetch values from the EMS devices"},
     {false, "types", "list supported EMS telegram type IDs"},
@@ -1099,6 +1099,9 @@ void TelnetCommandCallback(uint8_t wc, const char * commandLine) {
             ok = true;
         } else if (strcmp(second_cmd, "t") == 0) {
             ems_setLogging(EMS_SYS_LOGGING_THERMOSTAT);
+            ok = true;
+        } else if (strcmp(second_cmd, "e") == 0) {
+            ems_setLogging(EMS_SYS_LOGGING_EXPLAIN);
             ok = true;
         } else if (strcmp(second_cmd, "r") == 0) {
             ems_setLogging(EMS_SYS_LOGGING_RAW);
