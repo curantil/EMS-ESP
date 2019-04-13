@@ -343,6 +343,8 @@ void ems_setLogging(_EMS_SYS_LOGGING loglevel) {
             myDebug("System Logging set to Verbose");
         } else if (loglevel == EMS_SYS_LOGGING_THERMOSTAT) {
             myDebug("System Logging set to Thermostat only");
+        } else if (loglevel == EMS_SYS_LOGGING_EXPLAIN) {
+            myDebug("System Logging set to Explain mode");
         } else if (loglevel == EMS_SYS_LOGGING_RAW) {
             myDebug("System Logging set to Raw mode");
         }
@@ -1036,6 +1038,12 @@ void _process_UBAMonitorFast(uint8_t src, uint8_t * data, uint8_t length) {
 
     // at this point do a quick check to see if the hot water or heating is active
     _checkActive();
+
+    if (EMS_Sys_Status.emsLogging == EMS_SYS_LOGGING_EXPLAIN) {
+        myDebug("Selected flow temperature %d°C", EMS_Boiler.selFlowTemp);
+        myDebug("Current flow temperature %d°C", EMS_Boiler.curFlowTemp);
+        myDebug("Return temperature %d°C", EMS_Boiler.retTemp);
+    }
 }
 
 /**

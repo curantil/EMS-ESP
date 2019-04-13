@@ -75,6 +75,7 @@ typedef enum {
     EMS_SYS_LOGGING_RAW,        // raw data mode
     EMS_SYS_LOGGING_BASIC,      // only basic read/write messages
     EMS_SYS_LOGGING_THERMOSTAT, // only telegrams sent from thermostat
+    EMS_SYS_LOGGING_EXPLAIN,    // explain what the telegrams are saying
     EMS_SYS_LOGGING_VERBOSE     // everything
 } _EMS_SYS_LOGGING;
 
