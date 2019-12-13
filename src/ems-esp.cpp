@@ -62,6 +62,7 @@ Ticker showerColdShotStopTimer;
 #define SHOWER_COLDSHOT_DURATION 10 // in seconds. 10 seconds for cold water before turning back hot water
 #define SHOWER_MAX_DURATION 420000  // in ms. 7 minutes, before trigger a shot of cold water
 
+#define BURNER_TIMEOUT_MINUTES 5
 typedef struct {
     unsigned long timestamp;      // for internal timings, via millis()
     uint8_t       dallas_sensors; // count of dallas sensors
@@ -1197,6 +1198,7 @@ void MQTTCallback(unsigned int type, const char * topic, const char * message) {
         myESP.mqttSubscribe(TOPIC_BOILER_WWACTIVATED);
         myESP.mqttSubscribe(TOPIC_BOILER_CMD_WWTEMP);
         myESP.mqttSubscribe(TOPIC_BOILER_CMD_COMFORT);
+        myESP.mqttSubscribe(TOPIC_BOILER_CMD_BURNERPOWER);
         myESP.mqttSubscribe(TOPIC_SHOWER_TIMER);
         myESP.mqttSubscribe(TOPIC_SHOWER_ALERT);
         myESP.mqttSubscribe(TOPIC_SHOWER_COLDSHOT);
@@ -1482,6 +1484,11 @@ void loop() {
     // the main loop
     myESP.loop();
 
+    if (millis() > ems_getLastSetBurnerPowerTime() + BURNER_TIMEOUT_MINUTES*60*1000) {
+        myDebug("now = %d, last time = %d", millis(), ems_getLastSetBurnerPowerTime());
+        ems_setBurnerPower(0);
+    }
+
     // check Dallas sensors, every 2 seconds
     // these values are published to MQTT seperately via the timer publishSensorValuesTimer
     if (EMSESP_Status.dallas_sensors != 0) {
@@ -1504,7 +1511,4 @@ void loop() {
         delay(EMSESP_DELAY); // some time to WiFi and everything else to catch up, and prevent overheating
     }
 
-    if (millis() > ems_getLastSetBurnerPowerTime() + 5*60*1000) {
-        ems_setBurnerPower(0);
-    }
 }

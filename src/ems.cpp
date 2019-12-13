@@ -311,7 +311,7 @@ bool ems_getTxCapable() {
 }
 
 unsigned long ems_getLastSetBurnerPowerTime() {
-    EMS_Boiler.lastSetBurnerPowerTime;
+    return EMS_Boiler.lastSetBurnerPowerTime;
 }
 
 bool ems_getBusConnected() {
@@ -1916,7 +1916,7 @@ void ems_setWarmWaterActivated(bool activated) {
  */
 void ems_setBurnerPower(uint8_t percentage) {
     // check for invalid temp values
-    if (percentage <= 100) {
+    if (percentage > 100) {
         return;
     }
 
